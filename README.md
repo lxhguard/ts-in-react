@@ -1,3 +1,96 @@
+项目：ts结合react的使用
+
+1. 项目创建：
+脚手架：npm install -g create-react-app
+创建： create-react-app react-ts-stage1 --scripts-version=react-scripts-ts
+
+2. react引入
+import * as React from 'react';
+区别 普通react项目：import React from 'react';
+
+3. react 组件声明
+创建compotents/Hello.tsx
+public constructor(props:any){
+    super(props);
+}
+
+4. 数据传递
+先看 js + react:
+父亲:<Hello title="标题" />
+儿子:<div>hello:{this.props.title}</div>
+在看 ts + react:
+父亲:<Hello title="标题" />
+儿子:
+（1）写接口：
+interface Iprops {
+    title: string;
+}
+注意：interface name must start with a capitalized I;
+接口写n个参数，父组件必须传递n个参数，且类型必须正确。
+接口中添加?可以使其变成可选项，例如work?: string
+（2）确定类型：
+class Hello extends React.Component<IProps, any>
+第一个代表props,第二个代表state状态
+（3）读取：
+<div>hello:{this.props.title}</div>
+
+5. 状态管理 state
+通过接口声明状态
+state设置为只读属性Readonly好处：在使用的时候不能随意传任意类型
+设置完state必须将constructor删除，否则会报错：
+Declaration of public instance field not allowed after declaration of constructor. Instead, this should come at the beginning of the class/interface.
+
+如果还是需要修改state，就跟之前一样写在constructor中，而不需要设置Readonly
+推荐：还是按照老方式来书写state
+
+
+6. 事件处理
+主要讲事件交互, 父子传值，函数回调
+
+会发现console.log识别不了，我们需要修改配置文件，以达到识别一些字样的规则
+tslint.json增加一个规则：
+"rules":{
+    "no-console":false
+},
+增加规则后，重新启动，否则不生效。
+
+7. 条件与列表渲染
+
+
+8. 引入第三方UI库  ---> Antd
+安装: cnpm install --save antd 
+会报错，是字母排序规则的问题，在tslint.json中增加字段ordered-imports:
+"rules":{
+    "no-console":false,
+    "ordered-imports":false
+},
+
+
+9. 路由
+安装依赖: cnpm install --save react-router react-router-dom
+cnpm install --save-dev @types/react-router-dom
+router 4.0: npm install --save-dev type@react-router
+
+
+10. redux
+安装：npm install -S redux react-redux @types/react-redux
+
+错误：(51,5): The key 'onDecrement' is not sorted alphabetically
+原因：代码顺序错了，交换顺序就行了
+
+安装redux调试器:
+cnpm install --save-dev redux-devtools-extension @types/redux-devtools-extension
+
+
+
+
+
+
+
+
+
+------------------------------------------- 自带的英文 ---------------------------------------------------------
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
